@@ -18,7 +18,7 @@ cd mysql
 4. By default MySQL runs on `localhost` port `3306` with:
    - user: `root`
    - password: *(empty)*
-5. (Optional) Verify in the browser at http://localhost/phpmyadmin.
+5. (Optional) Verify in the browser at http://127.0.0.1/phpmyadmin
 
 ## 3. Install Python
 

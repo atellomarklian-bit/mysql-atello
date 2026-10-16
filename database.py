@@ -1,10 +1,24 @@
+import sys
+
 import mysql.connector
 
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="",
-)
+try:
+    db = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="",
+    )
+except mysql.connector.Error as err:
+    print("ERROR: Not connected to MySQL.")
+    print(f"Reason: {err}")
+    print("Make sure MySQL is running in XAMPP and the settings in database.py are correct.")
+    sys.exit(1)
+
+if db.is_connected():
+    print("Connected to MySQL successfully.")
+else:
+    print("ERROR: Not connected to MySQL.")
+    sys.exit(1)
 
 cursor = db.cursor()
 cursor.execute("CREATE DATABASE IF NOT EXISTS test_db")

@@ -5,4 +5,4 @@ IF NOT EXIST venv (
 )
 call venv\Scripts\activate
 pip install mysql-connector-python
-python database.py
+python main.py

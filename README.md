@@ -1,6 +1,16 @@
-# MySQL Python CRUD (XAMPP)
+# Python MySQL Todo Manager
 
-A simple command-line Python app that connects to MySQL (via XAMPP) and lets you add, delete, and view users in a `users` table.
+A command-line Todo application that stores tasks in a MySQL database. It supports adding, viewing, updating, completing, and deleting tasks.
+
+## Project structure
+
+```
+main.py       Menu, database readiness check, and application loop
+todo.py       Task actions and console output
+database.py   MySQL connection and task queries
+schema.sql    Creates the todo_db database and tasks table
+run.bat       Windows launcher (creates venv, installs driver, runs app)
+```
 
 ## 1. Clone this repo
 
@@ -29,7 +39,17 @@ cd mysql
    python --version
    ```
 
-## 4. Run the Python app
+## 4. Create the database
+
+The app creates `todo_db` and the `tasks` table automatically on startup. To create them manually, import `schema.sql`:
+
+```bash
+mysql -u root -p < schema.sql
+```
+
+Or paste the contents of `schema.sql` into phpMyAdmin's SQL tab.
+
+## 5. Run the app
 
 ### Windows (automatic)
 
@@ -56,30 +76,44 @@ Install the MySQL driver and run:
 
 ```bash
 pip install mysql-connector-python
-python database.py
+python main.py
 ```
 
-## 5. Use the app
+## 6. Use the app
 
 ```
-1. Add user
-2. Delete user
-3. Show users
-4. Exit
+1. Add Task
+2. View All Tasks
+3. View Task by ID
+4. Update Task
+5. Mark Task as Completed
+6. Delete Task
+0. Exit
 ```
 
-Enter a number and follow the prompts. Data is stored in the `test_db` database, `users` table.
+Enter a number and follow the prompts.
 
 ## Configuration
 
-Connection settings are in `database.py`:
+Connection settings can be set with environment variables. The defaults match a standard XAMPP install:
 
-```python
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="",
-)
+| Variable      | Default     |
+| ------------- | ----------- |
+| `DB_HOST`     | `localhost` |
+| `DB_USER`     | `root`      |
+| `DB_PASSWORD` | *(empty)*   |
+| `DB_NAME`     | `todo_db`   |
+
+For example, on macOS/Linux:
+
+```bash
+DB_USER=myuser DB_PASSWORD=mypassword python main.py
 ```
 
-Change `host`, `user`, or `password` to match your XAMPP MySQL setup.
+On Windows (Command Prompt):
+
+```bat
+set DB_USER=myuser
+set DB_PASSWORD=mypassword
+python main.py
+```
